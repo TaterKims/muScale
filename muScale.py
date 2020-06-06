@@ -65,7 +65,7 @@ def major(root, octave):
         start += step
 
         if start  > 11:
-            print(f"Start was larger than 11 at {}, reducing by 10")
+            print(f"Start was larger than 11 at {start}, reducing by 10")
             start -= 10
             output.append(octave.index(start))
             continue
