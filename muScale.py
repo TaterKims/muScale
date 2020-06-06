@@ -16,12 +16,13 @@ def get_scale():
     print("Scale? 1 - Minor, 2 - Major")
     input_scale = input("> ")
 
-    if type(input_scale) is not int:
-        print("Please enter a number")
-        get_scale()
-    else:
-        pass
-    return input_scale
+    #if type(input_scale) is not int:
+    #    print("Please enter a number")
+    #    get_scale()
+    #else:
+    #    pass
+    return int(input_scale)
+
 octave = [ "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
 def minor(root, octave):
@@ -29,55 +30,63 @@ def minor(root, octave):
 
     output = []
 
-    minor_scale = [0, 2, 1, 2, 2, 1, 2, 2]
+    minor_scale = [2, 1, 2, 2, 1, 2, 2]
     start = octave.index(root)
     print(f"Start key number is {start}")
+    output.append(root)
 
     for step in minor_scale:
 
-        if step == 0:
-            output.append(root)
-        
+        #if step == 0:
+            #output.append(root)
+        #    pass
+
         start += step
 
+        # If start > 11 then it will be out of bounds...
         if start  > 11:
-            print(f"Start was larger than 11 at {start}, reducing by 10")
-            start -= 10
-            output.append(octave.index(start))
+            print(f"Start was larger than 11 at {start}, reducing by 11")
+            start -= start
+            print(f"Value of start after subtraction is {start} Note {octave[start]}")
+            output.append(octave[start])
             continue
         else:
-            output.append(octave.index(start))
+            output.append(octave[start])
             continue
     
     return output
 
 def major(root, octave):
+    ''' Input root note and the octave, spit out major scale'''
 
     output = []
-    major_scale = [0, 2, 2, 1, 2, 2, 2, 1]
+    major_scale = [2, 2, 1, 2, 2, 2, 1]
     start = octave.index(root)
+    output.append(root)
 
     for step in major_scale:
 
-        if step == 0:
-            output.append(root)
-        
         start += step
 
+        # If start > 11 then it will be out of bounds...
         if start  > 11:
-            print(f"Start was larger than 11 at {start}, reducing by 10")
-            start -= 10
-            output.append(octave.index(start))
+            print(f"Start was larger than 11 at {start}, reducing by {start}")
+            start -= 12
+            #print(f"Value of start after subtraction is {start} Note {octave[start]}")
+            output.append(octave[start])
             continue
+
+        # Otherwise values is within bounds, get the note at the positon of start in octave[]
         else:
-            output.append(octave.index(start))
+            output.append(octave[start])
             continue
     
     return output
 
 x = get_key()
 y = get_scale()
+
 if y == 1:
-    minor(x, octave)
+    print(minor(x, octave))
 elif y == 2:
-    major(x, octave)
+    print(major(x, octave))
